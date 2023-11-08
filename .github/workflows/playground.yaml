@@ -19,6 +19,8 @@ jobs:
           VERSION_TAG: ${{ github.event.inputs.versionTag }}
         run: |
           echo $VERSION_TAG
+          echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
+          echo "Tag name from github.ref_name: ${{  github.ref_name }}"
           echo "value=any" >> $GITHUB_OUTPUT
         shell: bash
       - name: Here is the result of set output "${{ steps.set-output.outputs.value }}"

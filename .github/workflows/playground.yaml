@@ -18,10 +18,15 @@ jobs:
         env:
           VERSION_TAG: ${{ github.event.inputs.versionTag }}
         run: |
+          if test -z "$VERSION_TAG"; then
+            echo "value=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "value=${VERSION_TAG}" >> $GITHUB_OUTPUT
+          fi
           echo $VERSION_TAG
+          echo ${{ github.event.inputs.versionTag }}
           echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
           echo "Tag name from github.ref_name: ${{  github.ref_name }}"
-          echo "value=any" >> $GITHUB_OUTPUT
         shell: bash
       - name: Here is the result of set output "${{ steps.set-output.outputs.value }}"
         run: |

@@ -1,0 +1,34 @@
+name: Playground
+on:
+  workflow_dispatch:
+    inputs:
+      versionTag:
+        description: "git version tag, e.g. v3.0.0"
+        required: true
+        type: string
+  release:
+    types:
+      - published
+jobs:
+  lets-play:
+    steps:
+      - name: Set output
+        id: set-output
+        env:
+          VERSION_TAG: ${{ github.event.inputs.versionTag }}
+        run: |
+          echo $VERSION_TAG
+          echo "value=any" >> $GITHUB_OUTPUT
+        shell: bash
+      - name: Here is the result of set output "${{ steps.set-output.outputs.value }}"
+        run: |
+          echo Good
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Get sha after checkout
+        id: get-sha-after-checkout
+        run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        shell: bash
+      - name: Here is the result of get sha "${{ steps.get-sha-after-checkout.outputs.sha }}"
+        run: |
+          echo ${{ steps.get-sha-after-checkout.outputs.sha }}

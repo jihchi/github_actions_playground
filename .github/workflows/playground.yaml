@@ -1,11 +1,6 @@
 name: Playground
 on:
   workflow_dispatch:
-    inputs:
-      versionTag:
-        description: "git version tag, e.g. v3.0.0"
-        required: true
-        type: string
   release:
     types:
       - published
@@ -13,6 +8,10 @@ jobs:
   lets-play:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
       - name: Set output
         id: set-output
         env:

@@ -11,6 +11,7 @@ on:
       - published
 jobs:
   lets-play:
+    runs-on: ubuntu-latest
     steps:
       - name: Set output
         id: set-output
